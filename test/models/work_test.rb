@@ -64,6 +64,12 @@ describe Work do
   end
   
   describe "custom methods" do
-    # TODO
+    it "can return the top ten for a category" do
+      # TODO
+    end
+    
+    it "can return the top work for the spotlight" do
+      # TODO
+    end
   end
 end
