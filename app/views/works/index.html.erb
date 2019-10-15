@@ -1,0 +1,16 @@
+<h1>List of Works</h1>
+
+<h2>Albums</h2>
+  <% @works.where(category: "album").each do |work| %>
+    <%= work.title %><br>
+  <% end %>
+
+<h2>Books</h2>
+  <% @works.where(category: "book").each do |work| %>
+    <%= work.title %><br>
+  <% end %>
+
+<h2>Movies</h2>
+  <% @works.where(category: "movie").each do |work| %>
+    <%= work.title %><br>
+  <% end %>
