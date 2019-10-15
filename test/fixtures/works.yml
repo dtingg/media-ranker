@@ -1,0 +1,98 @@
+# Albums 11 (more than 10)
+blue: 
+  category: album
+  title: Blue Breaker
+  creator: Dr. Sarai Langosh
+  publication_year: 1949
+  description: Et et expedita non aut quo.
+equinox: 
+  category: album
+  title: Equinox
+  creator: Queen Satterfield
+  publication_year: 1997
+  description: Fugit perferendis est quam sunt porro vel rerum.
+express:
+  category: album
+  title: Express Extract
+  creator: Dorothy Jast I
+  publication_year: 1969
+  description: Dolores dolorum aut ea aperiam et voluptatem.
+goodbye:
+  category: album
+  title: Goodbye Utopia
+  creator: Orion Spencer
+  publication_year: 1962
+  description: Praesentium enim pariatur voluptatem sed quod dolorum.
+holiday:
+  category: album
+  title: Holiday Choice
+  creator: Alexandria Lehner
+  publication_year: 1940
+  description: Excepturi voluptas ut voluptatum.
+kreb: 
+  category: album
+  title: Kreb-Full-o Been
+  creator: Ms. Trevion Buckridge
+  publication_year: 2016
+  description: Vero consectetur delectus consequatur id aut accusantium unde excepturi.
+major: 
+  category: album
+  title: Major Cup
+  creator: Jayde Bartoletti
+  publication_year: 1944
+  description: Quis recusandae cum est facere consequatur minima magni et.
+mug:
+  category: album
+  title: Mug
+  creator: Tia Weissnat II
+  publication_year: 1990
+  description: Laboriosam autem iusto quae sed voluptate et.
+treat:
+  category: album
+  title: Treat
+  creator: Eliseo Gorczany
+  publication_year: 1979
+  description: Sit est quis veniam saepe.
+wake: 
+  category: album
+  title: Wake-up Pie
+  creator: Timmy Streich I
+  publication_year: 1919
+  description: Voluptatem consequatur qui consectetur nisi officiis culpa.
+winter:
+  category: album
+  title: Winter Been
+  creator: Mackenzie Wilkinson
+  publication_year: 1932
+  description: Culpa repudiandae et at sint et amet fugiat et.
+# Books 5 (less than 10)
+green:
+  category: book
+  title: Green Forrester
+  creator: Raquel Hirthe
+  publication_year: 1933
+  description: Omnis qui quia odio.
+heart:
+  category: book
+  title: Heart Mug
+  creator: Orpha Douglas
+  publication_year: 2009
+  description: Qui voluptas alias quia.
+hello:
+  category: book
+  title: Hello Town
+  creator: Laury Walter
+  publication_year: 2005Est sed ut asperiores sed fugiat.
+red:
+  category: book
+  title: Red Pie
+  creator: Davon Kub
+  publication_year: 1961
+  description: Id dolorem qui laborum quia.
+summer: 
+  category: book
+  title: Summer Select
+  creator: Ms. Gwendolyn Ortiz
+  publication_year: 1946
+  description: Et molestiae eos nam odit aut sed.
+# Movies 0 (none)

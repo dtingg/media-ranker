@@ -64,12 +64,23 @@ describe Work do
   end
   
   describe "custom methods" do
-    it "can return the top ten for a category" do
-      # TODO
+    it "can return top ten items from a category" do
+      top_albums = Work.top_ten("album")
+      
+      top_albums.each do |album|
+        expect(album).must_be_instance_of Work
+      end
+      
+      expect(top_albums).must_be_instance_of Array
+      expect(top_albums.length).must_equal 10
     end
     
     it "can return the top work for the spotlight" do
-      # TODO
+      spotlight = Work.spotlight
+      
+      expect(spotlight).must_be_instance_of Array
+      expect(spotlight.first).must_be_instance_of Work
+      expect(spotlight.length).must_equal 1
     end
   end
 end
