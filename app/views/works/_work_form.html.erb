@@ -1,3 +1,4 @@
+
 <% if @work.errors.any? %> 
   <ul>
     <% @work.errors.each do |column, message| %>
@@ -6,7 +7,8 @@
   </ul>
 <% end %>
 
-<%= form_with model: @work, class: "work-form" do |f| %>
+<section>
+<%= form_with model: @work, class: "form-group" do |f| %>
   <%= f.label :category %><br>
   <%= f.select :category, ["album", "book", "movie"] %><br>
 
@@ -22,5 +24,6 @@
   <%= f.label :description%><br>
   <%= f.text_area :description%><br>
 
-  <%= f.submit "#{action_name} Work", class: "work-button" %>
+  <%= f.submit "#{action_name} Work", class: "btn btn-primary" %>
 <% end %>
+</section>
