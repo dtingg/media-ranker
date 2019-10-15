@@ -1,3 +1,7 @@
 <h1><%= @work.title %></h1>
 Created by: <%= @work.creator %><br>
-Published: <%= @work.publication_year %>
+Published: <%= @work.publication_year %><br>
+
+<%= link_to "Back to media ranks", root_path %><br>
+<%= link_to "Edit", edit_work_path %><br>
+<%= link_to "Delete", work_path(@work.id), method: :delete, data: {confirm: "Are you sure?"} %>
