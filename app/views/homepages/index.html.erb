@@ -1,0 +1,17 @@
+<% spotlight = Work.spotlight %>
+<h2>Media Spotlight: <%= link_to spotlight.title, work_path(spotlight) %> by <%= spotlight.creator %></h2>
+
+<h2>Top Albums</h2><br>
+<% Work.top_ten("album").each do |album| %>
+  <%= link_to album.title, work_path(album) %> by <%= album.creator %><br>
+<% end %>
+
+<h2>Top Books</h2><br>
+<% Work.top_ten("book").each do |book| %>
+  <%= link_to book.title, work_path(book) %> by <%= book.creator %><br>
+<% end %>
+
+<h2>Top Movies</h2><br>
+<% Work.top_ten("movie").each do |movie| %>
+  <%= link_to movie.title, work_path(movie) %> by <%= movie.creator %><br>
+<% end %>

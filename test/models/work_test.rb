@@ -78,9 +78,7 @@ describe Work do
     it "can return the top work for the spotlight" do
       spotlight = Work.spotlight
       
-      expect(spotlight).must_be_instance_of Array
-      expect(spotlight.first).must_be_instance_of Work
-      expect(spotlight.length).must_equal 1
+      expect(spotlight).must_be_instance_of Work
     end
   end
 end

@@ -9,6 +9,6 @@ class Work < ApplicationRecord
   
   def self.spotlight
     spotlight = Work.all.sample(1)
-    return spotlight
+    return spotlight[0]
   end
 end
