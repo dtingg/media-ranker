@@ -17,19 +17,28 @@ class WorksController < ApplicationController
   end
   
   def create
-    # TODO double check this
-    # if params[:work].nil?
-    #   redirect_to new_work_path
-    #   return
-    # end
+    if params[:work].nil?
+      redirect_to new_work_path
+      return
+    end
     
     @work = Work.new(work_params)
     
     if @work.save
       redirect_to work_path(@work.id)
       return
+      
     else
       render :new
+      return
+    end
+  end
+  
+  def edit
+    @work = Work.find_by(id: params[:id])
+    
+    if @work.nil?
+      head :not_found
       return
     end
   end
