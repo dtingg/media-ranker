@@ -11,13 +11,61 @@ describe Vote do
     end
     
     it "will have the required fields" do
-      vote = votes(:vote_one)
+      vote = votes(:one)
       
       [:user_id, :work_id, :created].each do |field|
         expect(vote).must_respond_to field
       end
     end
-    
-    
   end
+  
+  describe "relationships" do
+    it "has a user object" do
+      vote = votes(:one)
+      
+      expect(vote.user).must_be_instance_of User
+      expect(vote.user.username).must_equal "Dianna"      
+    end
+    
+    it "has a work object" do
+      vote = votes(:two)
+      
+      expect(vote.work).must_be_instance_of Work
+      expect(vote.work.title).must_equal "Goodbye Utopia"
+    end
+  end
+  
+  describe "validations" do
+    it "must have a user_id" do
+      vote = votes(:three)
+      
+      expect(vote.user_id).must_equal users(:brian).id
+    end
+    
+    it "votes for the same work must have unique user_ids" do
+      fake_vote = Vote.create(user_id: users(:greg).id, work_id: works(:goodbye).id, created: "10 Sep 2019")
+      
+      expect(fake_vote.valid?).must_equal false
+      expect(fake_vote.errors.messages).must_include :user_id
+      expect(fake_vote.errors.messages[:user_id]).must_equal ["has already been taken"]
+    end
+    
+    it "must have a work_id" do
+      new_vote.work_id = nil
+      new_vote.save
+      
+      expect(new_vote.valid?).must_equal false
+      expect(new_vote.errors.messages).must_include :work_id
+      expect(new_vote.errors.messages[:work_id]).must_equal ["can't be blank"]
+    end
+    
+    it "must have a created date" do
+      new_vote.created = nil
+      new_vote.save
+      
+      expect(new_vote.valid?).must_equal false
+      expect(new_vote.errors.messages).must_include :created
+      expect(new_vote.errors.messages[:created]).must_equal ["can't be blank"]
+    end
+  end  
 end

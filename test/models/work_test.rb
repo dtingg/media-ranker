@@ -17,32 +17,19 @@ describe Work do
     end
   end
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   describe "relationships" do
     it "can have many votes" do
-      # TODO
+      work = works(:goodbye)
+      
+      work.votes.each do |vote|
+        expect(vote).must_be_instance_of Vote
+      end
+      
+      expect(work.votes.count).must_equal 2
     end
   end
   
   describe "validations" do
-    it "must have a category" do
-      new_work.category = nil
-      new_work.save
-      
-      expect(new_work.valid?).must_equal false
-      expect(new_work.errors.messages).must_include :category
-      expect(new_work.errors.messages[:category]).must_equal ["is not included in the list"]
-    end
-    
     it "must have a category that is album, book, or movie" do
       new_work.category = "cat"
       new_work.save
@@ -61,16 +48,35 @@ describe Work do
       expect(new_work.errors.messages[:title]).must_equal ["can't be blank"]
     end
     
-    it "must have a unique title" do
-      new_work.save
+    it "must have a unique title for that category" do
+      duplicate_work = Work.create(category: "book", title: "Hello Town")
       
-      work2 = Work.create(category: "album", title: "Lover")
-      
-      expect(work2.valid?).must_equal false
-      expect(work2.errors.messages).must_include :title
-      expect(work2.errors.messages[:title]).must_equal ["has already been taken"]
+      expect(duplicate_work.valid?).must_equal false
+      expect(duplicate_work.errors.messages).must_include :title
+      expect(duplicate_work.errors.messages[:title]).must_equal ["has already been taken"]
     end
+    
+    it "can have the same title as a work from another category" do
+      same_title_work = Work.create(category: "movie", title: "Hello Town")
+      
+      expect(same_title_work.valid?).must_equal true
+    end  
   end
+  
+  
+  #   def self.top_ten(category)
+  #     top_ten = Work.where(category: category).sample(10)
+  #     return top_ten
+  #   end
+  
+  #   def self.spotlight
+  #     spotlight = Work.all.sample(1)
+  #     return spotlight[0]
+  #   end
+  
+  
+  
+  
   
   describe "custom methods" do
     it "can return top ten items from a category" do

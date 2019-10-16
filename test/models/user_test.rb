@@ -8,7 +8,6 @@ describe User do
       expect(new_user.valid?).must_equal true
     end
     
-    
     it "will have the required fields" do
       user = users(:dianna)
       
@@ -16,10 +15,17 @@ describe User do
         expect(user).must_respond_to field
       end
     end
-    
-    
-    
-    
-    
+  end
+  
+  describe "relationships" do
+    it "can have many votes" do
+      user = users(:brian)
+      
+      user.votes.each do |vote|
+        expect(vote).must_be_instance_of Vote
+      end
+      
+      expect(user.votes.count).must_equal 2
+    end
   end
 end
