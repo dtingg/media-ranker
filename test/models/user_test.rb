@@ -28,4 +28,24 @@ describe User do
       expect(user.votes.count).must_equal 2
     end
   end
+  
+  describe "validations" do
+    it "must a username" do
+      new_user.username = nil
+      new_user.save
+      
+      expect(new_user.valid?).must_equal false
+      expect(new_user.errors.messages).must_include :username
+      expect(new_user.errors.messages[:username]).must_equal ["can't be blank"]
+    end
+    
+    it "must have a joined date" do
+      new_user.joined = nil
+      new_user.save
+      
+      expect(new_user.valid?).must_equal false
+      expect(new_user.errors.messages).must_include :joined
+      expect(new_user.errors.messages[:joined]).must_equal ["can't be blank"]      
+    end
+  end
 end
