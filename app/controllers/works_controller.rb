@@ -67,34 +67,26 @@ class WorksController < ApplicationController
   end
   
   def upvote
-    
-    binding.pry
     @current_user = User.find_by(id: session[:user_id])
     
-    binding.pry
     if @current_user.nil?
-      flash[:error] = "A problem occurred: You must log in to do that"
-      redirect_to root_path
+      flash[:warning] = "A problem occurred: You must log in to do that"
+      redirect_back(fallback_location: root_path)
       return
     end
     
-    
     @work = Work.find_by(id: params[:id])
     
-    binding.pry
-    if Vote.where(work_id: @work.id, user_id: @current_user.id).empty?
-      v = Vote.create(work_id: @work.id, user_id: @current_user.id)  
-      
-      binding.pry
-      # redirect_back(fallback_location: work_path(work))
-      # return
+    if !Vote.where(work_id: @work.id, user_id: @current_user.id).empty?
+      flash[:warning] = "A problem occurred: Could not upvote. user: has already voted for this work"
+      redirect_back(fallback_location: root_path)
+      return
     else
-      flash[:error] = "A problem occurred: Could not upvote. user: has already voted for this work"
-      
-      binding.pry
-      # redirect_back(fallback_location: root_path)
+      Vote.create(work_id: @work.id, user_id: @current_user.id)  
+      flash[:success] = "Successfully upvoted!"
+      redirect_back(fallback_location: root_path)
+      return
     end
-    binding.pry
   end
   
   private
