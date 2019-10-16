@@ -39,11 +39,11 @@
       </ul>
     </nav>
   </header>
-    <section class="alert__container">
-      <% flash.each do |name, message| %>
-        <div class="alert alert-<%= name %>"><%= message %></div>
-      <% end %>        
-    </section>
+  <section class="alert__container">
+    <% flash.each do |name, message| %>
+      <div class="alert alert-<%= name %>"><%= message %></div>
+    <% end %>        
+  </section>
   <main>
     <%= yield %>
   </main>
