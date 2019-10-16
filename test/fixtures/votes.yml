@@ -1,0 +1,17 @@
+vote_one:
+  user: dianna
+  work: blue
+  created: 15 Nov 2018
+vote_two:
+  user: greg
+  work: goodbye
+  created: 05 Dec 2018
+vote_three:
+  user: brian
+  work: holiday
+  created: 19 Mar 2018  
+vote_four:
+  user: brian
+  work: goodbye
+  created: 14 Jan 2018
+  

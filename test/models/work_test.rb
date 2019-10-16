@@ -9,14 +9,23 @@ describe Work do
     end
     
     it "will have the required fields" do
-      new_work.save      
-      work = Work.first
+      work = works(:blue)
       
       [:category, :title, :creator, :publication_year, :description].each do |field|
         expect(work).must_respond_to field
       end
     end
   end
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   describe "relationships" do
     it "can have many votes" do

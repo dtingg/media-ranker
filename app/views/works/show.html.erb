@@ -24,7 +24,7 @@
       <% if @work.votes.count > 0 %>
         <% @work.votes.each do |vote| %>
         <tr>
-          <td><%= vote.user.username %></td>
+          <td><%= link_to vote.user.username, user_path(vote.user) %></td>
           <td><%= vote.created.strftime("%b %e, %Y") %></td>
         </tr>
         <% end %>
