@@ -23,21 +23,13 @@ class UsersController < ApplicationController
       session[:user_id] = user.id
       flash[:success] = "Successfully logged in as returning user #{username}"
     else
-      user = User.create(username: username)
+      user = User.create(username: username, joined: Date.today)
       session[:user_id] = user.id
       flash[:success] = "Successfully logged in as new user #{username}"
     end
     
     redirect_to root_path
   end
-  
-  # def current
-  #   @current_user = User.find_by(id: session[:user_id])
-  #   unless @current_user
-  #     flash[:error] = "You must be logged in to see this page"
-  #     redirect_to root_path
-  #   end
-  # end
   
   def logout
     session[:user_id] = nil

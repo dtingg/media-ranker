@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>MediaRanker</title>
+    <title>Media Ranker 2.0</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,7 +10,7 @@
   </head>
 
   <body>
-  <main>
+
   
   <header class="app-header__header">
     <h1>
@@ -21,28 +21,29 @@
     <nav class="app-header__nav">
       <ul class="nav app-header__site-nav-container">
         <li class="nav-item app-header__nav_item">
-          <a class="nav-link" href="/">View top media</a>
+          <%= link_to "View top media", root_path, class: "nav-link" %>
         </li>
         <li class="nav-item app-header__nav_item">
-          <a class="nav-link" href="/works">View all media</a>
+          <%= link_to "View all media", works_path, class: "nav-link" %>
         </li>
         <li class="nav-item app-header__nav_item">
-          <a class="nav-link" href="/works/new">Add a new work</a>
+          <%= link_to "Add a new work", new_work_path, class: "nav-link" %>
         </li>
         <li class="nav-item app-header__nav_item">
-          <a class="nav-link" href="/users">View all users</a>
+          <%= link_to "View all users", users_path, class: "nav-link" %>
         </li>
       </ul>
       <ul class="nav app-header__user-nav-container">
-
         <li class="nav-item app-header__nav_item">
-          <a class="btn btn-primary" href="/login">Log In</a>
+          <%= link_to "Log In", login_path, class: "btn btn-primary" %>
         </li>
-
+        <li class="nav-item app-header__nav_item">
+          <%= link_to "Log Out", logout_path, method: :post, class: "btn btn-primary" %>
+        </li>
       </ul>
     </nav>
   </header>
-
+  <main>
     <%= yield %>
   </main>
   </body>

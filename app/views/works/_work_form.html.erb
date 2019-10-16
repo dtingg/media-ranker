@@ -1,4 +1,3 @@
-
 <% if @work.errors.any? %> 
   <ul>
     <% @work.errors.each do |column, message| %>
@@ -8,22 +7,34 @@
 <% end %>
 
 <section>
-<%= form_with model: @work, class: "form-group" do |f| %>
-  <%= f.label :category %><br>
-  <%= f.select :category, ["album", "book", "movie"] %><br>
+  <%= form_with model: @work, class: "form-group" do |f| %>
+    <div class="form-group">
+      <%= f.label :category %>
+      <%= f.select :category, ["album", "book", "movie"], class: "form-control" %>
+    </div>
 
-  <%= f.label :title %><br>
-  <%= f.text_field :title %><br>
+    <div class="form-group">
+      <%= f.label :title %>
+      <%= f.text_field :title, class: "form-control" %>
+    </div>
 
-  <%= f.label :creator %><br>
-  <%= f.text_field :creator %><br>
+    <div class="form-group">
+      <%= f.label :creator %>
+      <%= f.text_field :creator, class: "form-control" %>
+    </div>
 
-  <%= f.label :publication_year %><br>
-  <%= f.text_field :publication_year %><br>
+    <div class="form-group">
+      <%= f.label :publication_year %>
+      <%= f.text_field :publication_year, class: "form-control" %>
+    </div>
 
-  <%= f.label :description%><br>
-  <%= f.text_area :description%><br>
+    <div class="form-group">
+      <%= f.label :description%>
+      <%= f.text_area :description, class: "form-control" %>
+    </div>
 
-  <%= f.submit "#{action_name} Work", class: "btn btn-primary" %>
-<% end %>
+    <div class="form-group">
+    <%= f.submit "#{action_name} Work", class: "btn btn-primary" %>
+    </div>
+  <% end %>
 </section>
