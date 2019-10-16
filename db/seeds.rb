@@ -65,6 +65,7 @@ CSV.foreach(VOTE_FILE, :headers => true) do |row|
   vote = Vote.new
   vote.user_id = row['user_id']
   vote.work_id = row['work_id']
+  vote.created = row['created']
   successful = vote.save
   
   if !successful

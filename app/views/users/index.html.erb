@@ -8,10 +8,10 @@
     </tr>
   </thead>
   <tbody>
-      <% User.all.each do |user| %>
+      <% User.order(:username).each do |user| %>
       <tr>
         <td><%= link_to user.username, user_path(user) %></td>
-        <td>0</td>
+        <td><%= user.votes.count %></td>
         <td><%= user.joined.strftime("%b %e, %Y") %></td>
       </tr>
       <% end %>

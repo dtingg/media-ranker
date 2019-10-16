@@ -21,13 +21,13 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>Dianna</td>
-        <td>Oct 14, 2019</td>
-      </tr>
-      <tr>
-        <td>Snoopy</td>
-        <td>Oct 14, 2019</td>
-      </tr>
+      <% if @work.votes.count > 0 %>
+        <% @work.votes.each do |vote| %>
+        <tr>
+          <td><%= vote.user.username %></td>
+          <td><%= vote.created.strftime("%b %e, %Y") %></td>
+        </tr>
+        <% end %>
+      <% end %>
     </tbody>
 </section>
