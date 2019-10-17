@@ -1,6 +1,6 @@
 class WorksController < ApplicationController
   def index
-    @works = Work.order(:title)    
+    @works = Work.order(:title)
   end  
   
   def show
@@ -24,7 +24,9 @@ class WorksController < ApplicationController
     
     @work = Work.new(work_params)
     
-    if @work.save
+    if @work.save      
+      flash[:success] = "Successfully created #{@work.category} #{@work.id}"  
+      
       redirect_to work_path(@work.id)
       return
       
@@ -50,6 +52,7 @@ class WorksController < ApplicationController
       redirect_to works_path
       return
     elsif @work.update(work_params)
+      flash[:success] = "Successfully updated #{@work.category} #{@work.id}"  
       redirect_to work_path
       return
     else

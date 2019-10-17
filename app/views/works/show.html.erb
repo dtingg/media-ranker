@@ -22,7 +22,8 @@
     </thead>
     <tbody>
       <% if @work.votes.count > 0 %>
-        <% @work.votes.each do |vote| %>
+
+        <% @work.votes.order(created: :desc).each do |vote| %>
         <tr>
           <td><%= link_to vote.user.username, user_path(vote.user) %></td>
           <td><%= vote.created.strftime("%b %e, %Y") %></td>
