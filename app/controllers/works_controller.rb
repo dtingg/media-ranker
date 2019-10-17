@@ -32,6 +32,12 @@ class WorksController < ApplicationController
       return
       
     else
+      flash[:warning] = "A problem occurred: Could not create album"
+      
+      # @work.errors.each do |column, message|
+      #   flash[:warning] = "#{column} #{message}"
+      # end
+      
       render :new
       return
     end
