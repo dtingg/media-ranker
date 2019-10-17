@@ -106,24 +106,14 @@ describe Work do
       expect(top_books[4].votes.length).must_equal 0
     end
   end
+  
+  describe "spotlight method" do
+    it "correctly returns the highest rated work" do
+      spotlight = Work.spotlight
+      
+      expect(spotlight).must_be_instance_of Work
+      expect(spotlight.votes.count).must_equal 4
+      expect(spotlight.title).must_equal works(:green).title
+    end
+  end
 end
-
-
-
-#     it "can return the top work for the spotlight" do
-#       spotlight = Work.spotlight
-
-#       expect(spotlight).must_be_instance_of Work
-#     end
-#   end
-# end
-
-#   def self.spotlight
-#     all_works = Work.order(:title)
-
-#     spotlight = all_works.max_by do |work|
-#       work.votes.count
-#     end
-
-#     return spotlight
-#   end
