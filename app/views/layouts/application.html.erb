@@ -6,7 +6,7 @@
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <link rel="shortcut icon" type="image/x-icon" href="http://media-ranker-2-0.herokuapp.com/assets/favicon-910822ff6cd5f6d37119171c4b716f1d4e5fe0e8ad5e408627659ebf8d7f16b1.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="https://res.cloudinary.com/hdxjsqsnw/image/upload/v1571338748/favicon.ico" />
   </head>
   <body>
   <header class="app-header__header">
@@ -30,12 +30,19 @@
         </li>
       </ul>
       <ul class="nav app-header__user-nav-container">
-        <li class="nav-item app-header__nav_item">
-          <%= link_to "Log In", login_path, class: "btn btn-primary" %>
-        </li>
-        <li class="nav-item app-header__nav_item">
-          <%= link_to "Log Out", logout_path, method: :post, class: "btn btn-primary" %>
-        </li>
+        <% current_user = User.find_by(id: session[:user_id]) %>
+          <% if current_user %>
+            <li class="nav-item app-header__nav_item">
+              <%= link_to "Logged in as #{current_user.username}", user_path(current_user), class: "btn btn-primary" %>
+            </li>
+            <li class="nav-item app-header__nav_item">
+              <%= link_to "Log Out", logout_path, method: :post, class: "btn btn-primary" %>
+            </li>
+          <% else %>
+            <li class="nav-item app-header__nav_item">
+              <%= link_to "Log In", login_path, class: "btn btn-primary" %>
+            </li>
+          <% end %>  
       </ul>
     </nav>
   </header>
