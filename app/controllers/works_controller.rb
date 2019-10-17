@@ -1,6 +1,7 @@
 class WorksController < ApplicationController
   def index
-    @works = Work.order(:title)
+    # https://stackoverflow.com/questions/16996618/rails-order-by-results-count-of-has-many-association
+    @works = Work.left_joins(:votes).group(:id).order('COUNT(votes.id) DESC')
   end  
   
   def show

@@ -5,7 +5,7 @@ class Work < ApplicationRecord
   validates :title, presence: true, uniqueness: { scope: :category }
   
   def self.top_ten(category)
-    category_works = Work.where(category: category).order(:title)
+    category_works = Work.where(category: category)
     
     top_works = category_works.max_by(10) do |work|
       work.votes.count
@@ -15,7 +15,7 @@ class Work < ApplicationRecord
   end
   
   def self.spotlight
-    all_works = Work.order(:title)
+    all_works = Work.all
     
     spotlight = all_works.max_by do |work|
       work.votes.count
