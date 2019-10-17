@@ -1,5 +1,5 @@
 <h2>User Summary: <%= link_to @user.username, user_path(@user) %></h2>
-<p>Joined site <%= @user.joined %></p>
+<p>Joined site <%= @user.joined.strftime("%b %e, %Y") %></p>
 
 <section class="user-votes__container">
   <h3 class="user-votes__header">Votes</h3>
@@ -14,13 +14,17 @@
       </tr>
     </thead>
     <tbody>
+      <% @user.votes.each do |vote| %>
+        <% if !vote.work.nil? %>
         <tr>
-          <td>Happy Toes 3</td>
-          <td>Disney</td>
-          <td>2019</td>
-          <td>Album</td>
-          <td>Oct 14, 2019</td>
+          <td><%= link_to vote.work.title, work_path(vote.work) %></td>
+          <td><%= vote.work.creator %></td>
+          <td><%= vote.work.publication_year %></td>
+          <td><%= vote.work.category.capitalize %></td>
+          <td><%= vote.created.strftime("%b %e, %Y") %></td>
         </tr>
+        <% end %>
+      <% end %>
     </tbody>
   </table>
 </section>
