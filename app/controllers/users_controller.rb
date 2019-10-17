@@ -35,4 +35,10 @@ class UsersController < ApplicationController
     flash[:success] = "Successfully logged out"    
     redirect_to root_path
   end
+  
+  private
+  
+  def user_params
+    return params.require(:user).permit(:username, :joined)
+  end
 end
