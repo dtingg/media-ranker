@@ -15,7 +15,7 @@ class VotesController < ApplicationController
       redirect_back(fallback_location: root_path)
       return
     else
-      Vote.create(work_id: @work.id, user_id: @current_user.id)  
+      Vote.create(work_id: @work.id, user_id: @current_user.id, created: Date.today)  
       flash[:success] = "Successfully upvoted!"
       redirect_back(fallback_location: root_path)
       return
