@@ -1,7 +1,8 @@
 class WorksController < ApplicationController
   def index
     # https://stackoverflow.com/questions/16996618/rails-order-by-results-count-of-has-many-association
-    @works = Work.left_joins(:votes).group(:id).order('COUNT(votes.id) DESC')
+    # @works = Work.left_joins(:votes).group(:id).order(Arel.sql('COUNT(votes.id) DESC'))
+    @works = Work.sort_by_votes
   end  
   
   def show

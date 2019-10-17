@@ -4,22 +4,22 @@ class Work < ApplicationRecord
   validates_inclusion_of :category, in: ["album", "book", "movie"]
   validates :title, presence: true, uniqueness: { scope: :category }
   
+  def self.sort_by_votes
+    sorted_works = Work.left_joins(:votes).group(:id).order(Arel.sql('COUNT(votes.id) DESC'))
+
+    return sorted_works
+  end
+
   def self.top_ten(category)
-    category_works = Work.where(category: category)
-    
-    top_works = category_works.max_by(10) do |work|
-      work.votes.count
-    end    
-    
+    category_works = Work.sort_by_votes.where(category: category)
+    top_works = category_works.limit(10)
     return top_works
   end
   
   def self.spotlight
-    all_works = Work.all
+    all_works = Work.sort_by_votes
     
-    spotlight = all_works.max_by do |work|
-      work.votes.count
-    end
+    spotlight = all_works[0]
     
     return spotlight
   end
