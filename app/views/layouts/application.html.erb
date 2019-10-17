@@ -46,19 +46,21 @@
       </ul>
     </nav>
   </header>
-  <section class="alert__container">
-    <% flash.each do |name, message| %>
-      <div class="alert alert-<%= name %>"><%= message %>
-        <% if @work && @work.errors.any? %> 
-        <ul>
-        <% @work.errors.each do |column, message| %>
-        <li><%= column %>: <%= message %></li>
-        <% end %>
-        </ul>
-        <% end %>
-      </div>
-    <% end %>      
-  </section>
+  <% if flash.count > 0 %>
+    <section class="alert__container">
+      <% flash.each do |name, message| %>
+        <div class="alert alert-<%= name %>"><%= message %>
+          <% if @work && @work.errors.any? %> 
+          <ul>
+          <% @work.errors.each do |column, message| %>
+          <li><%= column %>: <%= message %></li>
+          <% end %>
+          </ul>
+          <% end %>
+        </div>
+      <% end %>      
+    </section>
+  <% end %>
   <main>
     <%= yield %>
   </main>
