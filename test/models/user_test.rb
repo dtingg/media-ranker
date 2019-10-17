@@ -25,7 +25,7 @@ describe User do
         expect(vote).must_be_instance_of Vote
       end
       
-      expect(user.votes.count).must_equal 2
+      expect(user.votes.count).must_equal 4
     end
   end
   

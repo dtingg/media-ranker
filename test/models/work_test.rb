@@ -63,37 +63,67 @@ describe Work do
     end  
   end
   
-  
-  #   def self.top_ten(category)
-  #     top_ten = Work.where(category: category).sample(10)
-  #     return top_ten
-  #   end
-  
-  #   def self.spotlight
-  #     spotlight = Work.all.sample(1)
-  #     return spotlight[0]
-  #   end
-  
-  
-  
-  
-  
-  describe "custom methods" do
-    it "can return top ten items from a category" do
+  describe "top_ten method" do
+    it "will only return 10 items, even if there are more than 10 objects in that category" do
+      number_of_albums = Work.where(category: "album")
+      expect(number_of_albums.length).must_equal 11
+      
       top_albums = Work.top_ten("album")
+      expect(top_albums.length).must_equal 10
       
       top_albums.each do |album|
         expect(album).must_be_instance_of Work
       end
-      
-      expect(top_albums).must_be_instance_of Array
-      expect(top_albums.length).must_equal 10
     end
     
-    it "can return the top work for the spotlight" do
-      spotlight = Work.spotlight
+    it "will return less than 10 items if there are less than 10 objects in that category" do
+      number_of_books = Work.where(category: "book")
+      expect(number_of_books.length).must_equal 5
       
-      expect(spotlight).must_be_instance_of Work
+      top_books = Work.top_ten("book")
+      expect(top_books.length).must_equal 5
+      
+      top_books.each do |book|
+        expect(book).must_be_instance_of Work
+      end
+    end
+    
+    it "will return an empty array if there are 0 objects in that category" do
+      number_of_movies = Work.where(category: "movie")
+      expect(number_of_movies.length).must_equal 0
+      
+      top_movies = Work.top_ten("movie")
+      expect(top_movies).must_equal []
+    end
+    
+    it "will return items sorted by the number of votes" do
+      top_books = Work.top_ten("book")
+      
+      expect(top_books[0].votes.length).must_equal 4
+      expect(top_books[1].votes.length).must_equal 3
+      expect(top_books[2].votes.length).must_equal 2
+      expect(top_books[3].votes.length).must_equal 1
+      expect(top_books[4].votes.length).must_equal 0
     end
   end
 end
+
+
+
+#     it "can return the top work for the spotlight" do
+#       spotlight = Work.spotlight
+
+#       expect(spotlight).must_be_instance_of Work
+#     end
+#   end
+# end
+
+#   def self.spotlight
+#     all_works = Work.order(:title)
+
+#     spotlight = all_works.max_by do |work|
+#       work.votes.count
+#     end
+
+#     return spotlight
+#   end
