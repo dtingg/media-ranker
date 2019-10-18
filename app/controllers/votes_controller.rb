@@ -10,7 +10,7 @@ class VotesController < ApplicationController
     
     @work = Work.find_by(id: params[:work_id])
     
-    if !Vote.where(work_id: @work.id, user_id: @current_user.id).empty?
+    if Vote.exists?(@work.id, @current_user.id)
       flash[:warning] = "A problem occurred: Could not upvote."
       flash[:error] = "user: has already voted for this work"
       redirect_back(fallback_location: root_path)

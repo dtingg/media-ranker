@@ -29,7 +29,7 @@ describe VotesController do
     it "creates a vote if there is a logged in user" do
       perform_login
       
-      @work = Work.all.first
+      @work = works(:winter)
       
       expect { post work_upvote_path(@work.id) }.must_change "Vote.count", 1
       expect(flash[:success]).must_equal "Successfully upvoted!"
