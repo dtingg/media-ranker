@@ -16,6 +16,9 @@ class WorksController < ApplicationController
     @work = Work.new
   end
   
+  
+  
+  
   def create
     if params[:work].nil?
       redirect_to new_work_path

@@ -25,7 +25,7 @@ describe UsersController do
   
   describe "show" do
     it "responds with success when showing an existing valid user" do
-      test_user = User.first
+      test_user = users(:greg)
       
       get user_path(test_user.id)
       

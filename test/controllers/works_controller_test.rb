@@ -22,75 +22,63 @@ describe WorksController do
       must_respond_with :success
     end    
   end
+  
+  describe "show" do
+    it "responds with success when showing an existing valid work" do
+      test_work = works(:heart)
+      
+      get work_path(test_work.id)
+      
+      must_respond_with :success
+    end
+    
+    it "redirects to works path if given invalid work id" do
+      invalid_id = -1
+      
+      get work_path(invalid_id)
+      
+      must_redirect_to works_path
+    end
+  end  
+  
+  describe "new" do
+    it "responds with success" do
+      get new_work_path
+      
+      must_respond_with :success
+    end
+  end
+  
+  describe "create" do
+    it "does not create a work if the form data is nil, and responds with redirect" do
+      work_hash = { work: nil }
+      
+      expect { post works_path, params: work_hash }.wont_change "Work.count"
+      
+      must_respond_with :redirect
+    end  
+    
+    it "can create a new work with valid information accurately, and redirect" do
+      work_hash = { work: { category: "album", title: "Lover", creator: "Taylor Swift", publication_year: 2019, description: "Pop"} }
+      
+      expect { post works_path, params: work_hash }.must_change "Work.count", 1
+      
+      new_work = Work.find_by(title: work_hash[:work][:title])
+      
+      expect(new_work.category).must_equal work_hash[:work][:category]
+      expect(new_work.creator).must_equal work_hash[:work][:creator]
+      expect(new_work.publication_year).must_equal work_hash[:work][:publication_year]
+      expect(new_work.description).must_equal work_hash[:work][:description]
+      
+      expect(flash[:success]).must_equal "Successfully created #{new_work.category} #{new_work.id}"
+      must_respond_with :redirect
+    end
+    
+    
+  end
+  
 end   
 
-
-
-
-
-
-
-#   describe "show" do
-#     it "responds with success when showing an existing valid driver" do
-#       #Act
-#       get driver_path(driver_fred.id)
-
-#       # Assert
-#       must_respond_with :success
-#     end
-
-#     it "redirects to drivers path if given invalid driver id" do
-#       # Arrange
-#       invalid_id = -1
-
-#       # Act
-#       get driver_path(invalid_id)
-
-#       # Assert
-#       must_redirect_to drivers_path
-#     end
-#   end
-
-#   describe "new" do
-#     it "responds with success" do
-#       # Act
-#       get new_driver_path
-
-#       # Assert
-#       must_respond_with :success
-#     end
-#   end
-
-#   describe "create" do
-#     it "can create a new driver with valid information accurately, and redirect" do
-#       # Arrange
-#       driver_hash = { driver: { name: "Barney Rubble", vin: "456", car_make: "bird", car_model: "robin", available: false } }
-
-#       # Act-Assert
-#       expect { post drivers_path, params: driver_hash }.must_change "Driver.count", 1
-
-#       # Assert
-#       new_driver = Driver.find_by(name: driver_hash[:driver][:name])
-
-#       expect(new_driver.vin).must_equal driver_hash[:driver][:vin]
-#       expect(new_driver.car_make).must_equal driver_hash[:driver][:car_make]
-#       expect(new_driver.car_model).must_equal driver_hash[:driver][:car_model]
-#       expect(new_driver.available).must_equal driver_hash[:driver][:available]
-
-#       must_respond_with :redirect
-#     end
-
-#     it "does not create a driver if the form data violates Driver validations, and responds with success" do
-#       # Arrange
-#       driver_hash = { driver: { name: "Dino" } }
-
-#       # Act-Assert
-#       expect { post drivers_path, params: driver_hash }.wont_change "Driver.count"
-
-#       # Assert
-#       must_respond_with :success
-#     end  
-#   end
 
 #   describe "edit" do
 #     it "responds with success when getting the edit page for an existing, valid driver" do
