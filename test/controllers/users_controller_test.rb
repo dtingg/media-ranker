@@ -9,6 +9,15 @@ describe UsersController do
       
       expect { post work_upvote_path(@work.id) }.must_change "Vote.count", 1
     end
+    
+    it "won't let a user vote for the same work twice" do
+      perform_login
+      
+      @work = Work.all.first
+      post work_upvote_path(@work.id) 
+      
+      expect { post work_upvote_path(@work.id) }.wont_change "Vote.count", 1
+    end
   end
   
   describe "no logged in user" do

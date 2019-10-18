@@ -1,11 +1,11 @@
 class WorksController < ApplicationController
+  before_action :find_work, only: [:show, :edit, :update, :destroy]
+  
   def index
     @works = Work.sort_by_votes
   end  
   
   def show
-    @work = Work.find_by(id: params[:id])
-    
     if @work.nil?
       redirect_to works_path
       return
@@ -29,7 +29,6 @@ class WorksController < ApplicationController
       
       redirect_to work_path(@work.id)
       return
-      
     else
       flash[:warning] = "A problem occurred: Could not create album"
       
@@ -39,8 +38,6 @@ class WorksController < ApplicationController
   end
   
   def edit
-    @work = Work.find_by(id: params[:id])
-    
     if @work.nil?
       head :not_found
       return
@@ -48,8 +45,6 @@ class WorksController < ApplicationController
   end
   
   def update
-    @work = Work.find_by(id: params[:id])
-    
     if @work.nil?
       redirect_to works_path
       return
@@ -64,14 +59,16 @@ class WorksController < ApplicationController
   end
   
   def destroy
-    @work = Work.find_by(id: params[:id])
-    
     @work.destroy if @work
     flash[:success] = "Successfully destroyed #{@work.category} #{@work.id}"    
     redirect_to root_path
   end
   
   private
+  
+  def find_work
+    @work = Work.find_by(id: params[:id])
+  end
   
   def work_params
     return params.require(:work).permit(:category, :title, :creator, :publication_year, :description)
