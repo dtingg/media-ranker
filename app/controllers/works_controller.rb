@@ -31,6 +31,7 @@ class WorksController < ApplicationController
       return
     else
       flash[:warning] = "A problem occurred: Could not create album"
+      flash[:error] = "title: can't be blank"
       
       render :new
       return
