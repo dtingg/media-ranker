@@ -63,6 +63,17 @@ describe Work do
     end  
   end
   
+  describe "sort_by_votes method" do
+    it "returns all works sorted by votes descending" do
+      sorted_works = Work.sort_by_votes
+      
+      expect(sorted_works.length).must_equal 16
+      expect(sorted_works[0].votes.count).must_equal 4
+      expect(sorted_works[1].votes.count).must_equal 3
+      expect(sorted_works.last.votes.count).must_equal 0
+    end
+  end
+  
   describe "top_ten method" do
     it "will only return 10 items, even if there are more than 10 objects in that category" do
       number_of_albums = Work.where(category: "album")
