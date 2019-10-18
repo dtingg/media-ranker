@@ -68,4 +68,32 @@ describe Vote do
       expect(new_vote.errors.messages[:created]).must_equal ["can't be blank"]
     end
   end  
+  
+  describe "exists? method" do
+    it "returns true if a vote already exists" do
+      test_work = works(:wake)
+      test_user = users(:greg)
+      test_vote = Vote.create(user_id: test_user.id, work_id: test_work.id, created: Date.today)
+      
+      result = Vote.exists?(test_work.id, test_user.id)
+      
+      expect(result).must_equal true
+    end
+    
+    it "returns false if a vote doens't exist" do
+      test_work = Work.create(category: "album", title: "Lover", creator: "Taylor Swift", publication_year: 2019, description: "pop") 
+      test_user = users(:dianna)
+      
+      result = Vote.exists?(test_work.id, test_user.id)
+      
+      expect(result).must_equal false
+    end
+  end
+  
+  def self.exists?(work_id, user_id)
+    result = Vote.where(work_id: work_id, user_id: user_id)  
+    
+    return false if result.empty?
+    return true
+  end
 end
