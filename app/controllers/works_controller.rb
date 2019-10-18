@@ -7,7 +7,7 @@ class WorksController < ApplicationController
     @work = Work.find_by(id: params[:id])
     
     if @work.nil?
-      head :not_found
+      redirect_to works_path
       return
     end
   end

@@ -50,15 +50,15 @@
     <section class="alert__container">
       <% flash.each do |name, message| %>
         <div class="alert alert-<%= name %>"><%= message %>
-          <% if @work && @work.errors.any? %> 
+          <% if @work && @work.errors.any? %>
           <ul>
-          <% @work.errors.each do |column, message| %>
-          <li><%= column %>: <%= message %></li>
+            <% @work.errors.each do |column, message| %>
+            <li><%= column %>: <%= message %></li>
           <% end %>
           </ul>
           <% end %>
+      <% end %>
         </div>
-      <% end %>      
     </section>
   <% end %>
   <main>

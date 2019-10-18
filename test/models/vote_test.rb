@@ -47,7 +47,7 @@ describe Vote do
       
       expect(fake_vote.valid?).must_equal false
       expect(fake_vote.errors.messages).must_include :user_id
-      expect(fake_vote.errors.messages[:user_id]).must_equal ["has already been taken"]
+      expect(fake_vote.errors.messages[:user_id]).must_equal ["user: has already voted for this work"]
     end
     
     it "must have a work_id" do
