@@ -79,6 +79,7 @@ describe WorksController do
       
       expect { post works_path, params: work_hash }.wont_change "Work.count", 1
       expect(flash[:warning]).must_equal "A problem occurred: Could not create album"
+      expect(flash[:error]).must_equal "title: can't be blank"
     end
   end
   
@@ -91,7 +92,7 @@ describe WorksController do
       must_respond_with :success
     end
     
-    it "responds with redirect when getting the edit page for a non-existing driver" do
+    it "responds with redirect when getting the edit page for a non-existing work" do
       invalid_id = -1
       
       get edit_work_path(invalid_id)
@@ -140,24 +141,26 @@ describe WorksController do
       updated_work = Work.find_by(id: test_work.id)
       
       expect(updated_work.title).must_equal test_work.title
+      
+      must_respond_with :success
     end
   end
   
   describe "destroy" do
+    it "does not change the db when the work does not exist, then responds with redirect" do  
+      invalid_id = -1
+      
+      expect{ delete work_path(invalid_id) }.wont_change "Work.count"
+      
+      must_respond_with :redirect
+    end
+    
     it "destroys the work instance in db when work exists, then redirects" do
       test_work = works(:heart)
       
       expect{ delete work_path(test_work.id)}.must_differ "Work.count", -1
       
       expect(flash[:success] = "Successfully destroyed #{test_work.category} #{test_work.id}")
-      must_respond_with :redirect
-    end
-    
-    it "does not change the db when the work does not exist, then responds with redirect" do  
-      invalid_id = -1
-      
-      expect{ delete work_path(invalid_id) }.wont_change "Work.count"
-      
       must_respond_with :redirect
     end
   end    
