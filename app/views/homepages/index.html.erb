@@ -12,15 +12,9 @@
     <% end %>
   </p>
 </section>
-
 <hr class="root__hr" />
-
 <section class="top-ten__container">
-
-  <%= render partial: "top_ten_form", locals: { work_name: "movie" } %>
-
-  <%= render partial: "top_ten_form", locals: { work_name: "book" } %>
-
-  <%= render partial: "top_ten_form", locals: { work_name: "album" } %>
-
+  <%= render partial: "top_ten", locals: { work_name: "movie" } %>
+  <%= render partial: "top_ten", locals: { work_name: "book" } %>
+  <%= render partial: "top_ten", locals: { work_name: "album" } %>
 </section>
