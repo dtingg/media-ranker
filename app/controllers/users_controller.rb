@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     @user = User.find_by(id: params[:id])
     
     if @user.nil?
-      head :not_found
+      redirect_to users_path
       return
     end
   end
