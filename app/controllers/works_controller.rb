@@ -45,11 +45,14 @@ class WorksController < ApplicationController
   end
   
   def update
+    old_work_category = @work.category
+    
     if @work.nil?
       redirect_to works_path
       return
+      
     elsif @work.update(work_params)
-      flash[:success] = "Successfully updated #{@work.category} #{@work.id}"  
+      flash[:success] = "Successfully updated #{old_work_category} #{@work.id}"  
       redirect_to work_path
       return
     else
@@ -59,9 +62,13 @@ class WorksController < ApplicationController
   end
   
   def destroy
-    @work.destroy if @work
-    flash[:success] = "Successfully destroyed #{@work.category} #{@work.id}"    
-    redirect_to root_path
+    if !@work
+      redirect_to root_path
+    else
+      @work.destroy
+      flash[:success] = "Successfully destroyed #{@work.category} #{@work.id}"    
+      redirect_to root_path
+    end
   end
   
   private

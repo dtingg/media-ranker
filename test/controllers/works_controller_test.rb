@@ -99,81 +99,45 @@ describe WorksController do
       must_respond_with :redirect
     end
   end
-end   
-
-
-
-
-#   describe "update" do
-#     it "can update an existing driver with valid information accurately, and redirect" do
-#       # Arrange
-#       original_driver = driver_fred
-#       changes_hash = { driver: { name: "Wilma Flintstone", vin: "456", car_make: "bird", car_model: "robin", available: false } }
-
-#       # Act-Assert
-#       expect { patch driver_path(original_driver.id), params: changes_hash }.wont_change "Driver.count"
-
-#       # Assert
-#       updated_driver = Driver.find_by(id: original_driver.id)
-
-#       expect(updated_driver.name).must_equal changes_hash[:driver][:name]
-#       expect(updated_driver.vin).must_equal changes_hash[:driver][:vin]
-#       expect(updated_driver.car_make).must_equal changes_hash[:driver][:car_make]
-#       expect(updated_driver.car_model).must_equal changes_hash[:driver][:car_model]
-#       expect(updated_driver.available).must_equal changes_hash[:driver][:available]
-
-#       must_respond_with :redirect
-#     end
-
-#     it "does not update any driver if given an invalid id, and responds with a redirect" do
-#       # Arrange
-#       driver_hash = { driver: { name: "Wilma Flintstone", vin: "456", car_make: "bird", car_model: "robin", available: false }}
-#       invalid_id = -1
-
-#       # Act-Assert
-#       expect { patch driver_path(invalid_id), params: driver_hash }.wont_change "Driver.count"
-
-#       # Assert
-#       must_redirect_to drivers_path
-#     end
-
-#     it "does not update a driver if the form data violates Driver validations" do
-#       # Arrange
-#       driver_fred.save
-#       driver_hash = { driver: { name: nil } }
-
-#       # Act-Assert
-#       expect { patch driver_path(driver_fred.id), params: driver_hash }.wont_change "Driver.count"
-
-#       # Assert
-#       updated_driver = Driver.first
-#       expect(updated_driver.name).must_equal driver_fred.name
-#     end
-#   end
-
-#   describe "destroy" do
-#     it "destroys the driver instance in db when driver exists, then redirects" do
-#       # Arrange
-#       driver_fred.save
-
-#       # Act-Assert
-#       expect{ delete driver_path(driver_fred.id)}.must_differ "Driver.count", -1
-
-#       # Assert
-#       must_respond_with :redirect
-#     end
-
-#     it "does not change the db when the driver does not exist, then responds with redirect" do
-#       # Arrange
-#       invalid_id = -1
-
-#       # Act-Assert
-#       expect{ delete driver_path(invalid_id)}.wont_change "Driver.count"
-
-#       # Assert
-#       must_respond_with :redirect
-#     end
-#   end
-
-#   end
-# end
+  
+  describe "update" do    
+    it "can update an existing work with valid information accurately, and redirect" do
+      test_work = works(:summer)
+      old_category = test_work.category
+      
+      changes_hash = { work: { category: "movie", title: "Summer Select 2", creator: "Sammy Ortiz", publication_year: 2019, description: "Sequel" }}
+      
+      expect { patch work_path(test_work.id), params: changes_hash }.wont_change "Work.count"
+      
+      updated_work = Work.find_by(id: test_work.id)
+      
+      expect(updated_work.category).must_equal changes_hash[:work][:category]
+      expect(updated_work.title).must_equal changes_hash[:work][:title]
+      expect(updated_work.creator).must_equal changes_hash[:work][:creator]
+      expect(updated_work.publication_year).must_equal changes_hash[:work][:publication_year]
+      expect(updated_work.description).must_equal changes_hash[:work][:description]
+      
+      expect(flash[:success]).must_equal "Successfully updated #{old_category} #{test_work.id}"
+      must_respond_with :redirect      
+    end
+  end
+  
+  describe "destroy" do
+    it "destroys the work instance in db when work exists, then redirects" do
+      test_work = works(:heart)
+      
+      expect{ delete work_path(test_work.id)}.must_differ "Work.count", -1
+      
+      expect(flash[:success] = "Successfully destroyed #{test_work.category} #{test_work.id}")
+      must_respond_with :redirect
+    end
+    
+    it "does not change the db when the work does not exist, then responds with redirect" do  
+      invalid_id = -1
+      
+      expect{ delete work_path(invalid_id)}.wont_change "Work.count"
+      
+      must_respond_with :redirect
+    end
+  end  
+end
