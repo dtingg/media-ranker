@@ -50,7 +50,7 @@ describe UsersController do
   end
   
   describe "login for new user" do
-    it "creates a new user and flashes a message" do
+    it "can create a new user and flashes a message" do
       login_data = { user: { username: "Lewis" }}
       
       expect {post login_path, params: login_data }.must_change "User.count", 1
