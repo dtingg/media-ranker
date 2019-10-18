@@ -16,9 +16,6 @@ class WorksController < ApplicationController
     @work = Work.new
   end
   
-  
-  
-  
   def create
     if params[:work].nil?
       redirect_to new_work_path
@@ -42,7 +39,7 @@ class WorksController < ApplicationController
   
   def edit
     if @work.nil?
-      head :not_found
+      redirect_to root_path
       return
     end
   end

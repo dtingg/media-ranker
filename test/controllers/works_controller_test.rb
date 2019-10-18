@@ -74,32 +74,35 @@ describe WorksController do
       must_respond_with :redirect
     end
     
-    
+    it "will not create a new work if a required field is missing" do
+      work_hash = { work: { category: "album", title: nil, creator: "Taylor Swift", publication_year: 2019, description: "Pop"} }
+      
+      expect { post works_path, params: work_hash }.wont_change "Work.count", 1
+      expect(flash[:warning]).must_equal "A problem occurred: Could not create album"
+    end
   end
   
+  describe "edit" do
+    it "responds with success when getting the edit page for an existing, valid work" do
+      test_work = works(:heart)
+      
+      get edit_work_path(test_work.id)
+      
+      must_respond_with :success
+    end
+    
+    it "responds with redirect when getting the edit page for a non-existing driver" do
+      invalid_id = -1
+      
+      get edit_work_path(invalid_id)
+      
+      must_respond_with :redirect
+    end
+  end
 end   
 
 
-#   describe "edit" do
-#     it "responds with success when getting the edit page for an existing, valid driver" do
-#       # Act
-#       get edit_driver_path(driver_fred.id)
 
-#       # Assert
-#       must_respond_with :success
-#     end
-
-#     it "responds with redirect when getting the edit page for a non-existing driver" do
-#       # Arrange
-#       invalid_id = -1
-
-#       # Act
-#       get edit_driver_path(invalid_id)
-
-#       # Assert
-#       must_respond_with :redirect
-#     end
-#   end
 
 #   describe "update" do
 #     it "can update an existing driver with valid information accurately, and redirect" do
