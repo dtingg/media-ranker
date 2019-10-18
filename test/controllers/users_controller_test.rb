@@ -39,4 +39,24 @@ describe UsersController do
       must_redirect_to users_path
     end
   end  
+  
+  describe "login form" do
+    it "responds with success" do
+      get login_path
+      
+      must_respond_with :success
+    end
+  end
+  
+  describe "login for new user" do
+    it "creates a new user and flashes a message" do
+      login_data = { user: { username: "Lewis" }}
+      
+      expect {post login_path, params: login_data }.must_change "User.count", 1
+      
+      new_user = User.find_by(username: "Lewis")
+      
+      expect(flash[:success]).must_equal "Successfully created new user Lewis with ID #{new_user.id}"
+    end
+  end  
 end

@@ -17,6 +17,7 @@ class ActiveSupport::TestCase
     post login_path, params: login_data
     
     expect(session[:user_id]).must_equal user.id
+    expect(flash[:success]).must_equal "Successfully logged in as existing user #{user.username}"
     return user    
   end
 end
