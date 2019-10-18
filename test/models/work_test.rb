@@ -72,6 +72,27 @@ describe Work do
       expect(sorted_works[1].votes.count).must_equal 3
       expect(sorted_works.last.votes.count).must_equal 0
     end
+    
+    it "uses title ascending in case of a tie" do
+      Vote.all.each do |vote|
+        vote.destroy
+      end
+      
+      sorted_works = Work.sort_by_votes
+      
+      expect(sorted_works[0].title).must_equal "Blue Breaker"
+      expect(sorted_works[-1].title).must_equal "Winter Been"
+    end
+    
+    it "returns an empty array if there are no works" do
+      Work.all.each do |work|
+        work.destroy
+      end
+      
+      sorted_works = Work.sort_by_votes
+      
+      expect(sorted_works).must_equal []
+    end
   end
   
   describe "top_ten method" do
@@ -127,6 +148,16 @@ describe Work do
       expect(spotlight).must_be_instance_of Work
       expect(spotlight.votes.count).must_equal 4
       expect(spotlight.title).must_equal works(:green).title
+    end
+    
+    it "returns nil if there are no works saved" do
+      Work.all.each do |work|
+        work.destroy
+      end
+      
+      spotlight = Work.spotlight
+      
+      assert_nil(spotlight)
     end
   end
 end

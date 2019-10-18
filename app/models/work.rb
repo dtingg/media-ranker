@@ -6,7 +6,7 @@ class Work < ApplicationRecord
   
   def self.sort_by_votes
     # https://stackoverflow.com/questions/16996618/rails-order-by-results-count-of-has-many-association
-    sorted_works = Work.left_joins(:votes).group(:id).order(Arel.sql('COUNT(votes.id) DESC'))
+    sorted_works = Work.left_joins(:votes).group(:id).order(Arel.sql('COUNT(votes.id) DESC'), title: :asc)
     
     return sorted_works
   end
