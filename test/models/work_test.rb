@@ -53,7 +53,7 @@ describe Work do
       
       expect(duplicate_work.valid?).must_equal false
       expect(duplicate_work.errors.messages).must_include :title
-      expect(duplicate_work.errors.messages[:title]).must_equal ["has already been taken"]
+      expect(duplicate_work.errors.messages[:title]).must_equal ["work: there is already a work with that title in this category"]
     end
     
     it "can have the same title as a work from another category" do
@@ -84,6 +84,7 @@ describe Work do
       
       top_albums.each do |album|
         expect(album).must_be_instance_of Work
+        expect(album.category).must_equal "album"
       end
     end
     
@@ -96,6 +97,7 @@ describe Work do
       
       top_books.each do |book|
         expect(book).must_be_instance_of Work
+        expect(book.category).must_equal "book"
       end
     end
     

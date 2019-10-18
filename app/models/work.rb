@@ -2,7 +2,7 @@ class Work < ApplicationRecord
   has_many :votes, dependent: :destroy
   
   validates_inclusion_of :category, in: ["album", "book", "movie"]
-  validates :title, presence: true, uniqueness: { scope: :category }
+  validates :title, presence: true, uniqueness: { scope: :category, message: "work: there is already a work with that title in this category" }
   
   def self.sort_by_votes
     # https://stackoverflow.com/questions/16996618/rails-order-by-results-count-of-has-many-association
@@ -22,7 +22,7 @@ class Work < ApplicationRecord
   def self.spotlight
     all_works = Work.sort_by_votes
     
-    spotlight = all_works[0]
+    spotlight = all_works.first
     
     return spotlight
   end
