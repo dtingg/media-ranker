@@ -163,5 +163,5 @@ describe WorksController do
       expect(flash[:success] = "Successfully destroyed #{test_work.category} #{test_work.id}")
       must_respond_with :redirect
     end
-  end    
+  end  
 end
