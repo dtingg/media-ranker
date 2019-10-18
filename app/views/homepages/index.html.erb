@@ -16,56 +16,11 @@
 <hr class="root__hr" />
 
 <section class="top-ten__container">
-  <section class="top-ten__list-container">
-  <h2 class="top-ten__header">
-    Top Movies
-  </h2>
-  <ul class="list-group top-ten__list">
-  <% Work.top_ten("movie").each do |movie| %>
-    <li class="list-group-item">
-      <h4>
-        <%= link_to movie.title, work_path(movie) %>
-        <small class="top-ten__creator"> by <%= movie.creator %></small>
-      </h4>
-      <p><%= movie.votes.count %> votes</p>
-    </li>
-  <% end %>
-  </ul>
-  </section>
 
-  <section class="top-ten__list-container">
-  <h2 class="top-ten__header">
-    Top Books
-  </h2>
-  <ul class="list-group top-ten__list">
-  <% Work.top_ten("book").each do |book| %>
-    <li class="list-group-item">
-      <h4>
-        <%= link_to book.title, work_path(book) %>
-        <small class="top-ten__creator"> by <%= book.creator %></small>
-      </h4>
-      <p><%= book.votes.count %> votes</p>
-    </li>
-  <% end %>
-  </ul>
-  </section>
+  <%= render partial: "top_ten_form", locals: { work_name: "movie" } %>
 
-  <section class="top-ten__list-container">
-  <h2 class="top-ten__header">
-    Top Albums
-  </h2>
-  <ul class="list-group top-ten__list">
-  <% Work.top_ten("album").each do |album| %>
-    <li class="list-group-item">
-      <h4>
-        <%= link_to album.title, work_path(album) %>
-        <small class="top-ten__creator"> by <%= album.creator %></small>
-      </h4>
-      <p><%= album.votes.count %> votes</p>
-    </li>
-  <% end %>
-  </ul>
-  </section>
+  <%= render partial: "top_ten_form", locals: { work_name: "book" } %>
+
+  <%= render partial: "top_ten_form", locals: { work_name: "album" } %>
 
 </section>
-  
