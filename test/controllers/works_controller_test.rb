@@ -160,5 +160,5 @@ describe WorksController do
       
       must_respond_with :redirect
     end
-  end  
+  end    
 end
