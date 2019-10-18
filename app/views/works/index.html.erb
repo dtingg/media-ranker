@@ -1,8 +1,6 @@
 <h2>List of Works</h2>
-
 <%= render partial: "work_list", locals: { work_name: "album" } %>
 <%= render partial: "work_list", locals: { work_name: "book" } %>
 <%= render partial: "work_list", locals: { work_name: "movie" } %>
-
 <%= link_to "View top media", root_path, class: "btn btn-secondary" %>
 <%= link_to "Add a new work", new_work_path, class: "btn btn-primary" %>

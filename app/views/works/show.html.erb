@@ -21,7 +21,6 @@
     </thead>
     <tbody>
       <% if @work.votes.count > 0 %>
-
         <% @work.votes.order(created: :desc).each do |vote| %>
         <tr>
           <td><%= link_to vote.user.username, user_path(vote.user) %></td>
