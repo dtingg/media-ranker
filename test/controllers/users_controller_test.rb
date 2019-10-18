@@ -24,7 +24,7 @@ describe UsersController do
   end    
   
   describe "show" do
-    it "responds with success when showing an existing valid user" do
+    it "responds with success when showing a valid user" do
       test_user = users(:greg)
       
       get user_path(test_user.id)
@@ -50,6 +50,17 @@ describe UsersController do
   end
   
   describe "login for new user" do
+    it "can log in an existing user and flashes a message" do
+      login_data = { user: { username: "Dianna" }}
+      
+      expect {post login_path, params: login_data }.wont_change "User.count"
+      
+      existing_user = User.find_by(username: "Dianna")
+      
+      expect(session[:user_id]).must_equal existing_user.id
+      expect(flash[:success]).must_equal "Successfully logged in as existing user #{existing_user.username}"
+    end
+    
     it "can create a new user and flashes a message" do
       login_data = { user: { username: "Lewis" }}
       
@@ -57,6 +68,7 @@ describe UsersController do
       
       new_user = User.find_by(username: "Lewis")
       
+      expect(session[:user_id]).must_equal new_user.id
       expect(flash[:success]).must_equal "Successfully created new user Lewis with ID #{new_user.id}"
     end
   end  
@@ -75,7 +87,6 @@ describe UsersController do
     it "redirects to root path if no user is logged in" do
       post logout_path
       
-      assert_nil(session[:user_id])
       must_redirect_to root_path
     end
   end
