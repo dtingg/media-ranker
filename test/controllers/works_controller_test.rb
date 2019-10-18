@@ -101,6 +101,16 @@ describe WorksController do
   end
   
   describe "update" do    
+    it "does not update a work if given an invalid id, and responds with a redirect" do      
+      work_hash = { work: { category: "album", title: "Lover", creator: "Taylor Swift", publication_year: 2019, description: "Pop"} }
+      
+      invalid_id = -1
+      
+      expect { patch work_path(invalid_id), params: work_hash }.wont_change "Work.count"
+      
+      must_redirect_to works_path
+    end
+    
     it "can update an existing work with valid information accurately, and redirect" do
       test_work = works(:summer)
       old_category = test_work.category
@@ -120,6 +130,17 @@ describe WorksController do
       expect(flash[:success]).must_equal "Successfully updated #{old_category} #{test_work.id}"
       must_respond_with :redirect      
     end
+    
+    it "does not update a work if the form data violates Work validations" do
+      test_work = works(:heart)
+      work_hash = { work: { title: nil } }
+      
+      expect { patch work_path(test_work.id), params: work_hash }.wont_change "Work.count"
+      
+      updated_work = Work.find_by(id: test_work.id)
+      
+      expect(updated_work.title).must_equal test_work.title
+    end
   end
   
   describe "destroy" do
@@ -135,7 +156,7 @@ describe WorksController do
     it "does not change the db when the work does not exist, then responds with redirect" do  
       invalid_id = -1
       
-      expect{ delete work_path(invalid_id)}.wont_change "Work.count"
+      expect{ delete work_path(invalid_id) }.wont_change "Work.count"
       
       must_respond_with :redirect
     end

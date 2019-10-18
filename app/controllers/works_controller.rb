@@ -45,13 +45,14 @@ class WorksController < ApplicationController
   end
   
   def update
-    old_work_category = @work.category
-    
     if @work.nil?
       redirect_to works_path
       return
-      
-    elsif @work.update(work_params)
+    end
+    
+    old_work_category = @work.category
+    
+    if @work.update(work_params)
       flash[:success] = "Successfully updated #{old_work_category} #{@work.id}"  
       redirect_to work_path
       return
