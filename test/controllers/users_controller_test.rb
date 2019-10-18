@@ -22,6 +22,7 @@ describe UsersController do
       must_respond_with :success
     end
   end    
+  
   describe "show" do
     it "responds with success when showing an existing valid user" do
       test_user = User.first
@@ -59,4 +60,23 @@ describe UsersController do
       expect(flash[:success]).must_equal "Successfully created new user Lewis with ID #{new_user.id}"
     end
   end  
+  
+  describe "logout" do
+    it "successfully logs a valid user out" do
+      perform_login
+      
+      post logout_path
+      
+      assert_nil(session[:user_id])
+      expect(flash[:success]).must_equal "Successfully logged out"
+      must_redirect_to root_path
+    end
+    
+    it "redirects to root path if no user is logged in" do
+      post logout_path
+      
+      assert_nil(session[:user_id])
+      must_redirect_to root_path
+    end
+  end
 end
