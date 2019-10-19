@@ -13,7 +13,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @user.votes.each do |vote| %>
+      <% @user.sorted_votes.each do |vote| %>
       <tr>
         <td><%= link_to vote.work.title, work_path(vote.work) %></td>
         <td><%= vote.work.creator %></td>
