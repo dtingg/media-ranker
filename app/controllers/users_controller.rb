@@ -3,14 +3,14 @@ class UsersController < ApplicationController
     @users = User.order(:username)
   end
   
-  def show
-    @user = User.find_by(id: params[:id])
-    
-    if @user.nil?
-      redirect_to users_path
-      return
-    end
-  end
+  # def show
+  #   @user = User.find_by(id: params[:id])
+  
+  #   if @user.nil?
+  #     redirect_to users_path
+  #     return
+  #   end
+  # end
   
   def login_form
     @user = User.new
